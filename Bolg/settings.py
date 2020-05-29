@@ -137,3 +137,5 @@ SITE_DESCRIPTION = "my的个人网站，记录生活的瞬间，分享学习的�
 
 # 网站关键词，用于SEO
 SITE_KEYWORDS = "my,静觅,网络,IT,技术,博客,Python"
+#因为user.models文件中User(AbstractUser)需要添加这个配置
+AUTH_USER_MODEL="user.Ouser"
