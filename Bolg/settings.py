@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'my',   #添加新的应用
     'user', #新添加用户应用
+    'imagekit' #使用imagekit
 ]
 
 MIDDLEWARE = [
