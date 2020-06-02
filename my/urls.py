@@ -15,9 +15,29 @@ Including another URLconf
 """
 from django.contrib import admin
 from .views import IndexView
-from django.urls import path
-
+from django.urls import path,re_path,include
+from .views import (IndexView, DetailView, MessageView, AboutView, DonateView, ExchangeView, ProjectView, QuestionView, LinkView)
 urlpatterns = [
     path('',IndexView.as_view(template_name='index.html'),name='index'),
     path('admin/', admin.site.urls),
-]
+    
+    # 其他页面需要显示的路由
+    re_path(r'^category/(?P<bigslug>.*?)/(?P<slug>.*?)', IndexView.as_view(template_name='content.html'), name='category'),
+    
+    #自己介绍的路由
+    path('category/about/', AboutView, name='about'),
+    
+    #其他页面的路由
+    # 给我留言
+    path('category/message/', MessageView, name='message'),
+    # 关于自己
+    path('category/about/', AboutView, name='about'),
+    # 赞助作者
+    path('category/donate/', DonateView, name='donate'),
+    # 技术交流
+    path('category/exchange/', ExchangeView, name='exchange'),
+    # 项目合作
+    path('category/project/', ProjectView, name='project'),
+    # 提问交流
+    path('category/question/', QuestionView, name='question'),
+    ]
