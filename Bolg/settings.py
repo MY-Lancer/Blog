@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'my',   #添加新的应用
     'user', #新添加用户应用
-    'imagekit' #使用imagekit
+    'imagekit', #使用imagekit
+    'my.templatetags', #注册tag标签应用，是因为报错，才注意到
 ]
 
 MIDDLEWARE = [
