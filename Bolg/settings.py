@@ -41,7 +41,10 @@ INSTALLED_APPS = [
     'user', #新添加用户应用
     'imagekit', #使用imagekit
     'my.templatetags', #注册tag标签应用，是因为报错，才注意到
-    'comment'   #注册了评论应用
+    'comment',   #注册了评论应用
+    #'user.templatetags', #注册了用户登录页面应用
+    #'comment.templatetags', #注册了评论区的自定义模板
+    
 ]
 
 MIDDLEWARE = [
