@@ -1,12 +1,6 @@
-{% load blog_tags %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-</head>
-<body>
 {%extends 'base_right.html'%}
 
+{% load blog_tags %}
 {% block description %}
     <meta name="description" content="{% get_title category as c %}{{ c.description }}"/>
 {% endblock description %}
@@ -78,10 +72,4 @@
         {% endif %}
         </div>
     </div>
-{%endblock body%}    
-<!-- 首页 大分类跳转地址 -->
-<a href="{% url 'blog:category' big.slug '' %}">{{ big.name }}</a>
-<!-- 首页大分类下拉菜单小分类地址 -->
-<a href="{% url 'blog:category'  big.slug   c.slug  %}">{{ c.name }}</a>
-</body>
-</html>
+{%endblock body%}

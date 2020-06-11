@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load blog_tags %}
 
 {% block right %}
 <aside class="sidebar">
@@ -67,34 +68,68 @@
             <a href="https://developer.huaweicloud.com/campus?utm_source=cuiqingcai&utm_medium=blog&utm_campaign=campus"><img style="width:100%" src="/static/images/云服务器学生优惠套餐9元月.jpg"/></a>
         </div>
     </div>
-    <div class="widget widget_archive">
-        <div class="title"><h2>文章归档</h2></div>
+   <div class="widget widget_archive">
+    <!--文章归档-->
+    <div class="title"><h2>文章归档</h2></div>
+        {% get_data_date as data_date %}
         <ul>
-            <li><a href='https://cuiqingcai.com/date/2019/01'>2019年一月</a></li>
+            {% if data_date %}
+                {% for date in data_date %}
+                    <li><a href='{% url 'blog:date' date|date:'Y' date|date:'m' %}'>{{ date|date:'Y-m' }}</a></li>
+                {% endfor %}
+            {% else %}
+                <div>近期没有发表过文章</div>
+            {% endif %}
         </ul>
+</div>
+<!--文章归档结束-->
+<!--猜你喜欢-->
+<div class="widget d_postlist">
+    <div class="title"><h2>猜你喜欢</h2></div>
+    <ul>
+        {% get_article_list 'loves' 6 as hot_tag %}
+        {% for hot in hot_tag %}
+        <li>
+            <a href="/article/{{ hot.slug }} " title="{{ hot.title }}"><span class="thumbnail"><img
+                src="{{ hot.img_link }}" alt="{{ hot.title }}"/></span>
+                <span class="text">{{ hot.title }}</span>
+                <span class="muted">{{ hot.create_date|date:'Y-m-d' }}</span>
+                <span class="muted">{{ hot.loves }}喜欢</span>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<!--猜你喜欢结束-->
+<!--标签云-->
+<div class="widget d_tag">
+    <div class="title"><h2>标签云</h2></div>
+    <div class="d_tags">
+        {% get_tag_list as tags %}
+        {% for tag in tags %}
+            <!--tag.total_num直接获得标签次标签下的文章数-->
+            <a title="{{ tag.total_num }}个话题" href="{% url 'blog:tag' tag.name %}">{{ tag.name }} ({{ tag.total_num }})</a>
+        {% endfor %}
     </div>
-    <div class="widget d_postlist">
-        <div class="title"><h2>猜你喜欢</h2></div>
-        <ul>
-            <li><a href="https://cuiqingcai.com/1076.html" title="Python爬虫实战五之模拟登录淘宝并获取所有订单" ><span class="thumbnail"><img src="../static/images/timthumb.php" alt="Python爬虫实战五之模拟登录淘宝并获取所有订单" /></span><span class="text">Python爬虫实战五之模拟登录淘宝并获取所有订单</span><span class="muted">2015-02-24</span><span class="muted">8,059评论</span></a></li>
+</div>
+<!--标签云结束-->
 
-
+<!--友情链接-->
+<div class="widget widget_links">
+    <div class="title"><h2>友情链接</h2></div>
+        {% get_friends as friends %}
+        <ul class='xoxo blogroll'>
+            {% if friends %}
+                {% for friend in friends %}
+                    <li><a href="{{ friend.link }}" target="_blank">{{ friend.name }}</a></li>
+                {% endfor %}
+            {% else %}
+                <div>&nbsp;&nbsp;暂无友链，欢迎来战</div>
+            {% endif %}
         </ul>
-    </div>
-    <div class="widget d_tag">
-        <div class="title"><h2>标签云</h2></div>
-        <div class="d_tags">
-            <a title="153个话题" href="https://cuiqingcai.com/tag/python">Python (153)</a>
-        </div>
-    </div>
-    <div class="widget widget_links">
-        <div class="title"><h2>友情链接</h2></div>
-            <ul class='xoxo blogroll'>
-                <li><a href="http://www.99banzou.com" target="_blank">99伴奏网</a></li>
-
-            </ul>
-    </div>
-    <div class="widget widget_text">
+</div>
+<!--友情链接结束-->
+<div class="widget widget_text">
         <div class="title"><h2>精品推荐</h2></div>
         <div class="textwidget">
             <div class="side-ad">

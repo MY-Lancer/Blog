@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'user', #新添加用户应用
     'imagekit', #使用imagekit
     'my.templatetags', #注册tag标签应用，是因为报错，才注意到
+    'comment'   #注册了评论应用
 ]
 
 MIDDLEWARE = [
@@ -88,7 +89,7 @@ DATABASES = {
         'NAME': 'blog',
         # 避免映射数据库时出现警告
         'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            'init_command':'SET sql_mode="traditional",default_storage_engine=INNODB;',
             'charset': 'utf8mb4',
             },
 }
@@ -143,3 +144,8 @@ SITE_DESCRIPTION = "my的个人网站，记录生活的瞬间，分享学习的�
 SITE_KEYWORDS = "my,静觅,网络,IT,技术,博客,Python"
 #因为user.models文件中User(AbstractUser)需要添加这个配置
 AUTH_USER_MODEL="user.Ouser"
+# 媒体文件收集
+MEDIA_URL = "/media/"   # 媒体文件别名(相对路径) 和 绝对路径
+MEDIA_ROOT = (
+    os.path.join(BASE_DIR, 'media')
+)
